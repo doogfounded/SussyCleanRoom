@@ -1,0 +1,12 @@
+digraph should_format {
+  node [shape=box];
+  BB_0x103347faL [label="State BB_0x103347faL"];
+  BB_0x103347faL -> BB_0x1033480fL;
+  BB_0x103347faL -> BB_0x10334805L;
+  BB_0x10334805L [label="State BB_0x10334805L"];
+  BB_0x10334805L -> BB_0x1033480fL;
+  BB_0x10334805L -> BB_0x1033480dL;
+  BB_0x1033480dL [label="State BB_0x1033480dL"];
+  BB_0x1033480dL -> BB_0x1033480fL;
+  BB_0x1033480fL [label="State BB_0x1033480fL"];
+}

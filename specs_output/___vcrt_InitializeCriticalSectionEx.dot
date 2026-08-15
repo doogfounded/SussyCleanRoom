@@ -1,0 +1,14 @@
+digraph ___vcrt_InitializeCriticalSectionEx {
+  node [shape=box];
+  BB_0x1032dde1L [label="State BB_0x1032dde1L"];
+  BB_0x1032dde1L -> BB_0x1032dc07L;
+  BB_0x1032dde1L -> BB_0x1032de19L;
+  BB_0x1032dde1L -> BB_0x1032de04L;
+  BB_0x1032de04L [label="State BB_0x1032de04L"];
+  BB_0x1032de04L -> BB_0x100039e0L;
+  BB_0x1032de04L -> BB_0x1032de25L;
+  BB_0x1032de19L [label="State BB_0x1032de19L"];
+  BB_0x1032de19L -> BB_0x7bL;
+  BB_0x1032de19L -> BB_0x1032de25L;
+  BB_0x1032de25L [label="State BB_0x1032de25L"];
+}

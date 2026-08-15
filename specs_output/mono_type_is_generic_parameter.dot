@@ -1,0 +1,14 @@
+digraph mono_type_is_generic_parameter {
+  node [shape=box];
+  BB_0x10314720L [label="State BB_0x10314720L"];
+  BB_0x10314720L -> BB_0x10314742L;
+  BB_0x10314720L -> BB_0x1031472fL;
+  BB_0x1031472fL [label="State BB_0x1031472fL"];
+  BB_0x1031472fL -> BB_0x1031473bL;
+  BB_0x1031472fL -> BB_0x10314735L;
+  BB_0x10314735L [label="State BB_0x10314735L"];
+  BB_0x10314735L -> BB_0x10314742L;
+  BB_0x10314735L -> BB_0x1031473bL;
+  BB_0x1031473bL [label="State BB_0x1031473bL"];
+  BB_0x10314742L [label="State BB_0x10314742L"];
+}

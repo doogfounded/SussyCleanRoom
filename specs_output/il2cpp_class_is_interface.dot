@@ -1,0 +1,14 @@
+digraph il2cpp_class_is_interface {
+  node [shape=box];
+  BB_0x102854b0L [label="State BB_0x102854b0L"];
+  BB_0x102854b0L -> BB_0x102854cfL;
+  BB_0x102854b0L -> BB_0x102854bfL;
+  BB_0x102854bfL [label="State BB_0x102854bfL"];
+  BB_0x102854bfL -> BB_0x102854cfL;
+  BB_0x102854bfL -> BB_0x102854c5L;
+  BB_0x102854c5L [label="State BB_0x102854c5L"];
+  BB_0x102854c5L -> BB_0x102854cfL;
+  BB_0x102854c5L -> BB_0x102854cbL;
+  BB_0x102854cbL [label="State BB_0x102854cbL"];
+  BB_0x102854cfL [label="State BB_0x102854cfL"];
+}

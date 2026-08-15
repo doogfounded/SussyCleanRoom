@@ -1,0 +1,24 @@
+digraph _BrotliDecoderIsFinished@4 {
+  node [shape=box];
+  BB_0x102bfea0L [label="State BB_0x102bfea0L"];
+  BB_0x102bfea0L -> BB_0x102bfee2L;
+  BB_0x102bfea0L -> BB_0x102bfeabL;
+  BB_0x102bfeabL [label="State BB_0x102bfeabL"];
+  BB_0x102bfeabL -> BB_0x102bfed3L;
+  BB_0x102bfeabL -> BB_0x102bfeb1L;
+  BB_0x102bfeb1L [label="State BB_0x102bfeb1L"];
+  BB_0x102bfeb1L -> BB_0x102bfed3L;
+  BB_0x102bfeb1L -> BB_0x102bfeb7L;
+  BB_0x102bfeb7L [label="State BB_0x102bfeb7L"];
+  BB_0x102bfeb7L -> BB_0x102bfed3L;
+  BB_0x102bfeb7L -> BB_0x102bfeccL;
+  BB_0x102bfeccL [label="State BB_0x102bfeccL"];
+  BB_0x102bfeccL -> BB_0x102bfed5L;
+  BB_0x102bfed3L [label="State BB_0x102bfed3L"];
+  BB_0x102bfed3L -> BB_0x102bfed5L;
+  BB_0x102bfed5L [label="State BB_0x102bfed5L"];
+  BB_0x102bfed5L -> BB_0x102bfee2L;
+  BB_0x102bfed5L -> BB_0x102bfed9L;
+  BB_0x102bfed9L [label="State BB_0x102bfed9L"];
+  BB_0x102bfee2L [label="State BB_0x102bfee2L"];
+}

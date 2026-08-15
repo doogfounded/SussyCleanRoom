@@ -1,0 +1,9 @@
+digraph mono_image_get_entry_point {
+  node [shape=box];
+  BB_0x10314490L [label="State BB_0x10314490L"];
+  BB_0x10314490L -> BB_0x102943a0L;
+  BB_0x10314490L -> BB_0x103144a4L;
+  BB_0x10314490L -> BB_0x103144a2L;
+  BB_0x103144a2L [label="State BB_0x103144a2L"];
+  BB_0x103144a4L [label="State BB_0x103144a4L"];
+}

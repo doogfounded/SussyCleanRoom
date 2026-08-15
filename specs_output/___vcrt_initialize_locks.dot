@@ -1,0 +1,18 @@
+digraph ___vcrt_initialize_locks {
+  node [shape=box];
+  BB_0x1032da2bL [label="State BB_0x1032da2bL"];
+  BB_0x1032da2bL -> BB_0x1032da34L;
+  BB_0x1032da34L [label="State BB_0x1032da34L"];
+  BB_0x1032da34L -> BB_0x1032dde1L;
+  BB_0x1032da34L -> BB_0x1032da5dL;
+  BB_0x1032da34L -> BB_0x1032da48L;
+  BB_0x1032da48L [label="State BB_0x1032da48L"];
+  BB_0x1032da48L -> BB_0x1032da34L;
+  BB_0x1032da48L -> BB_0x1032da59L;
+  BB_0x1032da59L [label="State BB_0x1032da59L"];
+  BB_0x1032da59L -> BB_0x1032da64L;
+  BB_0x1032da5dL [label="State BB_0x1032da5dL"];
+  BB_0x1032da5dL -> BB_0x1032da67L;
+  BB_0x1032da5dL -> BB_0x1032da64L;
+  BB_0x1032da64L [label="State BB_0x1032da64L"];
+}

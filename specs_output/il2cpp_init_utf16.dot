@@ -1,0 +1,13 @@
+digraph il2cpp_init_utf16 {
+  node [shape=box];
+  BB_0x103135f0L [label="State BB_0x103135f0L"];
+  BB_0x103135f0L -> BB_0x103077b0L;
+  BB_0x103135f0L -> BB_0x1031362cL;
+  BB_0x103135f0L -> BB_0x1031362aL;
+  BB_0x1031362aL [label="State BB_0x1031362aL"];
+  BB_0x1031362aL -> BB_0x1031362cL;
+  BB_0x1031362cL [label="State BB_0x1031362cL"];
+  BB_0x1031362cL -> BB_0x10339812L;
+  BB_0x1031362cL -> BB_0x102a3fa0L;
+  BB_0x1031362cL -> BB_0x10284880L;
+}

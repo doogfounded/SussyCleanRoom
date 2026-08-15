@@ -1,0 +1,25 @@
+digraph ___scrt_is_nonwritable_in_current_image {
+  node [shape=box];
+  BB_0x10328dfeL [label="State BB_0x10328dfeL"];
+  BB_0x10328dfeL -> BB_0x103298f0L;
+  BB_0x10328dfeL -> BB_0x10328e79L;
+  BB_0x10328dfeL -> BB_0x10328e1cL;
+  BB_0x10328e1cL [label="State BB_0x10328e1cL"];
+  BB_0x10328e1cL -> BB_0x10328e79L;
+  BB_0x10328e1cL -> BB_0x10328e2dL;
+  BB_0x10328e2dL [label="State BB_0x10328e2dL"];
+  BB_0x10328e2dL -> BB_0x10328e79L;
+  BB_0x10328e2dL -> BB_0x10328e3bL;
+  BB_0x10328e3bL [label="State BB_0x10328e3bL"];
+  BB_0x10328e3bL -> BB_0x10328c01L;
+  BB_0x10328e3bL -> BB_0x10328e79L;
+  BB_0x10328e3bL -> BB_0x10328e52L;
+  BB_0x10328e52L [label="State BB_0x10328e52L"];
+  BB_0x10328e52L -> BB_0x10328e79L;
+  BB_0x10328e52L -> BB_0x10328e58L;
+  BB_0x10328e58L [label="State BB_0x10328e58L"];
+  BB_0x10328e58L -> BB_0x10328e82L;
+  BB_0x10328e79L [label="State BB_0x10328e79L"];
+  BB_0x10328e79L -> BB_0x10328e82L;
+  BB_0x10328e82L [label="State BB_0x10328e82L"];
+}

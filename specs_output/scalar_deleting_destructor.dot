@@ -1,0 +1,11 @@
+digraph `scalar_deleting_destructor' {
+  node [shape=box];
+  BB_0x103277e1L [label="State BB_0x103277e1L"];
+  BB_0x103277e1L -> BB_0x10327762L;
+  BB_0x103277e1L -> BB_0x103277fcL;
+  BB_0x103277e1L -> BB_0x103277f2L;
+  BB_0x103277f2L [label="State BB_0x103277f2L"];
+  BB_0x103277f2L -> BB_0x10329277L;
+  BB_0x103277f2L -> BB_0x103277fcL;
+  BB_0x103277fcL [label="State BB_0x103277fcL"];
+}

@@ -1,0 +1,13 @@
+digraph allocate {
+  node [shape=box];
+  BB_0x1034b054L [label="State BB_0x1034b054L"];
+  BB_0x1034b054L -> BB_0x1033b816L;
+  BB_0x1034b054L -> BB_0x1033b86fL;
+  BB_0x1034b054L -> BB_0x1034b081L;
+  BB_0x1034b054L -> BB_0x1034b077L;
+  BB_0x1034b077L [label="State BB_0x1034b077L"];
+  BB_0x1034b077L -> BB_0x1034b08aL;
+  BB_0x1034b081L [label="State BB_0x1034b081L"];
+  BB_0x1034b081L -> BB_0x1034b08aL;
+  BB_0x1034b08aL [label="State BB_0x1034b08aL"];
+}

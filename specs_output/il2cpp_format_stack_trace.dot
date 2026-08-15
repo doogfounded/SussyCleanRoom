@@ -1,0 +1,12 @@
+digraph il2cpp_format_stack_trace {
+  node [shape=box];
+  BB_0x10313380L [label="State BB_0x10313380L"];
+  BB_0x10313380L -> BB_0x102fb990L;
+  BB_0x10313380L -> BB_0x103133b9L;
+  BB_0x10313380L -> BB_0x103133b7L;
+  BB_0x103133b7L [label="State BB_0x103133b7L"];
+  BB_0x103133b7L -> BB_0x103133b9L;
+  BB_0x103133b9L [label="State BB_0x103133b9L"];
+  BB_0x103133b9L -> BB_0x10336af0L;
+  BB_0x103133b9L -> BB_0x10284880L;
+}

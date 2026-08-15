@@ -1,0 +1,13 @@
+digraph ___scrt_release_startup_lock {
+  node [shape=box];
+  BB_0x10328e92L [label="State BB_0x10328e92L"];
+  BB_0x10328e92L -> BB_0x103297b8L;
+  BB_0x10328e92L -> BB_0x10328eadL;
+  BB_0x10328e92L -> BB_0x10328e9eL;
+  BB_0x10328e9eL [label="State BB_0x10328e9eL"];
+  BB_0x10328e9eL -> BB_0x10328eadL;
+  BB_0x10328e9eL -> BB_0x10328ea4L;
+  BB_0x10328ea4L [label="State BB_0x10328ea4L"];
+  BB_0x10328ea4L -> BB_0x10328eadL;
+  BB_0x10328eadL [label="State BB_0x10328eadL"];
+}

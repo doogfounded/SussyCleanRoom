@@ -1,0 +1,25 @@
+digraph __get_stream_buffer_pointers {
+  node [shape=box];
+  BB_0x10336d43L [label="State BB_0x10336d43L"];
+  BB_0x10336d43L -> BB_0x10336d64L;
+  BB_0x10336d43L -> BB_0x10336d4fL;
+  BB_0x10336d4fL [label="State BB_0x10336d4fL"];
+  BB_0x10336d4fL -> BB_0x10330a8dL;
+  BB_0x10336d4fL -> BB_0x10336a80L;
+  BB_0x10336d64L [label="State BB_0x10336d64L"];
+  BB_0x10336d64L -> BB_0x10336d70L;
+  BB_0x10336d64L -> BB_0x10336d6bL;
+  BB_0x10336d6bL [label="State BB_0x10336d6bL"];
+  BB_0x10336d6bL -> BB_0x10336d70L;
+  BB_0x10336d70L [label="State BB_0x10336d70L"];
+  BB_0x10336d70L -> BB_0x10336d79L;
+  BB_0x10336d70L -> BB_0x10336d77L;
+  BB_0x10336d77L [label="State BB_0x10336d77L"];
+  BB_0x10336d77L -> BB_0x10336d79L;
+  BB_0x10336d79L [label="State BB_0x10336d79L"];
+  BB_0x10336d79L -> BB_0x10336d85L;
+  BB_0x10336d79L -> BB_0x10336d80L;
+  BB_0x10336d80L [label="State BB_0x10336d80L"];
+  BB_0x10336d80L -> BB_0x10336d85L;
+  BB_0x10336d85L [label="State BB_0x10336d85L"];
+}

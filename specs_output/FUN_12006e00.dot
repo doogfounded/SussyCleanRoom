@@ -1,0 +1,10 @@
+digraph FUN_12006e00 {
+  node [shape=box];
+  BB_0x12006e00L [label="State BB_0x12006e00L"];
+  BB_0x12006e00L -> BB_0x12006e1eL;
+  BB_0x12006e00L -> BB_0x12006e0cL;
+  BB_0x12006e0cL [label="State BB_0x12006e0cL"];
+  BB_0x12006e0cL -> BB_0x1030dfc0L;
+  BB_0x12006e0cL -> BB_0x12006e1eL;
+  BB_0x12006e1eL [label="State BB_0x12006e1eL"];
+}

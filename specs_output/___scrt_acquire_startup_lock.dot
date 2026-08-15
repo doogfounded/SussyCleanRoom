@@ -1,0 +1,17 @@
+digraph ___scrt_acquire_startup_lock {
+  node [shape=box];
+  BB_0x10328c43L [label="State BB_0x10328c43L"];
+  BB_0x10328c43L -> BB_0x103297b8L;
+  BB_0x10328c43L -> BB_0x10328c6dL;
+  BB_0x10328c43L -> BB_0x10328c4dL;
+  BB_0x10328c4dL [label="State BB_0x10328c4dL"];
+  BB_0x10328c4dL -> BB_0x10328c61L;
+  BB_0x10328c5dL [label="State BB_0x10328c5dL"];
+  BB_0x10328c5dL -> BB_0x10328c71L;
+  BB_0x10328c5dL -> BB_0x10328c61L;
+  BB_0x10328c61L [label="State BB_0x10328c61L"];
+  BB_0x10328c61L -> BB_0x10328c5dL;
+  BB_0x10328c61L -> BB_0x10328c6dL;
+  BB_0x10328c6dL [label="State BB_0x10328c6dL"];
+  BB_0x10328c71L [label="State BB_0x10328c71L"];
+}

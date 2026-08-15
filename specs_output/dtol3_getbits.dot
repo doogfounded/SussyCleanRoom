@@ -1,0 +1,13 @@
+digraph dtol3_getbits {
+  node [shape=box];
+  BB_0x10328548L [label="State BB_0x10328548L"];
+  BB_0x10328548L -> BB_0x10328578L;
+  BB_0x10328548L -> BB_0x1032855fL;
+  BB_0x1032855fL [label="State BB_0x1032855fL"];
+  BB_0x1032855fL -> BB_0x10328571L;
+  BB_0x1032855fL -> BB_0x10328569L;
+  BB_0x10328569L [label="State BB_0x10328569L"];
+  BB_0x10328569L -> BB_0x10328571L;
+  BB_0x10328571L [label="State BB_0x10328571L"];
+  BB_0x10328578L [label="State BB_0x10328578L"];
+}

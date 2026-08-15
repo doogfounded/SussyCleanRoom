@@ -1,0 +1,11 @@
+digraph il2cpp_method_get_flags {
+  node [shape=box];
+  BB_0x10313670L [label="State BB_0x10313670L"];
+  BB_0x10313670L -> BB_0x10313688L;
+  BB_0x10313670L -> BB_0x1031367bL;
+  BB_0x1031367bL [label="State BB_0x1031367bL"];
+  BB_0x1031367bL -> BB_0x102ef420L;
+  BB_0x1031367bL -> BB_0x10313688L;
+  BB_0x10313688L [label="State BB_0x10313688L"];
+  BB_0x10313688L -> BB_0x102a0780L;
+}

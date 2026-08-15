@@ -1,0 +1,13 @@
+digraph __IsNonwritableInCurrentImage {
+  node [shape=box];
+  BB_0x10350750L [label="State BB_0x10350750L"];
+  BB_0x10350750L -> BB_0x10350810L;
+  BB_0x10350750L -> BB_0x103507efL;
+  BB_0x10350750L -> BB_0x1035079bL;
+  BB_0x1035079bL [label="State BB_0x1035079bL"];
+  BB_0x1035079bL -> BB_0x10350700L;
+  BB_0x1035079bL -> BB_0x103507efL;
+  BB_0x1035079bL -> BB_0x103507b5L;
+  BB_0x103507b5L [label="State BB_0x103507b5L"];
+  BB_0x103507efL [label="State BB_0x103507efL"];
+}

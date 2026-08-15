@@ -1,0 +1,14 @@
+digraph FUN_10001270 {
+  node [shape=box];
+  BB_0x10001270L [label="State BB_0x10001270L"];
+  BB_0x10001270L -> BB_0x10329247L;
+  BB_0x10001270L -> BB_0x100012aeL;
+  BB_0x10001270L -> BB_0x100012a4L;
+  BB_0x100012a4L [label="State BB_0x100012a4L"];
+  BB_0x100012a4L -> BB_0x27L;
+  BB_0x100012a4L -> BB_0x100012b0L;
+  BB_0x100012aeL [label="State BB_0x100012aeL"];
+  BB_0x100012aeL -> BB_0x100012b0L;
+  BB_0x100012b0L [label="State BB_0x100012b0L"];
+  BB_0x100012b0L -> BB_0x10328f05L;
+}

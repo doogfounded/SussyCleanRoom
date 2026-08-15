@@ -1,0 +1,16 @@
+digraph ___vcrt_initialize {
+  node [shape=box];
+  BB_0x1032c30cL [label="State BB_0x1032c30cL"];
+  BB_0x1032c30cL -> BB_0x1032da2bL;
+  BB_0x1032c30cL -> BB_0x1032c318L;
+  BB_0x1032c30cL -> BB_0x1032c315L;
+  BB_0x1032c315L [label="State BB_0x1032c315L"];
+  BB_0x1032c318L [label="State BB_0x1032c318L"];
+  BB_0x1032c318L -> BB_0x1032c67cL;
+  BB_0x1032c318L -> BB_0x1032c328L;
+  BB_0x1032c318L -> BB_0x1032c321L;
+  BB_0x1032c321L [label="State BB_0x1032c321L"];
+  BB_0x1032c321L -> BB_0x1032da67L;
+  BB_0x1032c321L -> BB_0x1032c315L;
+  BB_0x1032c328L [label="State BB_0x1032c328L"];
+}
