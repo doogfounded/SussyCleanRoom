@@ -109,8 +109,8 @@ void record_vm_execution(const std::string& label, const std::string& filePath, 
     // 3. RECORD ALL 16 REGISTERS (R0 - R15)
     std::cout << "\n--- 3. REGISTER STATE MATRIX (R0 - R15) ---" << std::endl;
     for (int i = 0; i < 16; ++i) {
-        std::cout << "  R" << std::setw(2) << std::setfill(' ') << std::dec << i << " = 0x"
-                  << std::hex << std::setw(8) << std::setfill('0') << vm.read_reg(static_cast<uint8_t>(i)) << std::dec;
+        std::cout << "  R" << std::right << std::setw(2) << std::setfill(' ') << std::dec << i << " = 0x"
+                  << std::right << std::hex << std::setw(8) << std::setfill('0') << vm.read_reg(static_cast<uint8_t>(i)) << std::dec;
         if ((i + 1) % 4 == 0) std::cout << std::endl;
     }
 

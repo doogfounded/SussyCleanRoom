@@ -2,22 +2,26 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 namespace DoogEngine1 {
 
-static void print_step_trace(const VMContext& vm, uint32_t pc_offset, const std::string& disassembly, int modified_reg = -1) {
-    std::cout << "  [" << std::dec << std::setw(3) << std::setfill(' ') << vm.instruction_count << "] "
-              << "PC:0x" << std::hex << std::setw(4) << std::setfill('0') << pc_offset << " | "
-              << std::left << std::setw(28) << std::setfill(' ') << disassembly << " | "
-              << std::right;
+static void print_step_trace(const VMContext& vm, uint32_t pc_offset, const std::string& disassembly, int modified_reg = -1, const std::string& mem_effect = "") {
+    std::cout << "  [" << std::right << std::dec << std::setw(3) << std::setfill(' ') << vm.instruction_count << "] "
+              << "PC:0x" << std::right << std::hex << std::setw(4) << std::setfill('0') << pc_offset << " | "
+              << std::left << std::setw(28) << std::setfill(' ') << disassembly << " | ";
 
-    if (modified_reg >= 0) {
-        std::cout << "R" << modified_reg << "=0x" << std::hex << vm.read_reg(static_cast<uint8_t>(modified_reg)) << " ";
+    if (!mem_effect.empty()) {
+        std::cout << std::left << std::setw(28) << std::setfill(' ') << mem_effect;
+    } else if (modified_reg >= 0) {
+        std::stringstream ss;
+        ss << "R" << modified_reg << "=0x" << std::hex << vm.read_reg(static_cast<uint8_t>(modified_reg));
+        std::cout << std::left << std::setw(28) << std::setfill(' ') << ss.str();
     } else {
-        std::cout << "              ";
+        std::cout << std::string(28, ' ');
     }
 
-    std::cout << "| SP:" << std::dec << vm.sp;
+    std::cout << " | SP:" << std::right << std::dec << vm.sp;
     if (vm.sp > 0) {
         std::cout << " [Top:0x" << std::hex << vm.peek(0);
         if (vm.sp > 1) {
@@ -25,7 +29,7 @@ static void print_step_trace(const VMContext& vm, uint32_t pc_offset, const std:
         }
         std::cout << "]";
     }
-    std::cout << std::dec << std::endl;
+    std::cout << std::right << std::dec << std::setfill(' ') << std::endl;
 }
 
 uint32_t execute_bytecode_kernel(VMContext& vm) {
@@ -33,8 +37,8 @@ uint32_t execute_bytecode_kernel(VMContext& vm) {
 
     if (vm.trace_execution) {
         std::cout << "\n=================== STEP DEBUGGER EXECUTION TRACE ===================" << std::endl;
-        std::cout << "  STEP   PC       | INSTRUCTION                  | REG EFFECT     | STACK STATE" << std::endl;
-        std::cout << "---------------------------------------------------------------------" << std::endl;
+        std::cout << "  STEP   PC       | INSTRUCTION                  | EFFECT / MEMORY EVENT        | STACK STATE" << std::endl;
+        std::cout << "--------------------------------------------------------------------------------------------" << std::endl;
     }
 
     while (vm.is_running && vm.pc != nullptr) {
@@ -180,7 +184,9 @@ uint32_t execute_bytecode_kernel(VMContext& vm) {
                 uint8_t val = vm.read_mem8(addr);
                 vm.write_reg(dst, val);
                 if (vm.trace_execution) {
-                    print_step_trace(vm, cur_pc_offset, "LOAD_MEM8 R" + std::to_string(dst) + ", [R" + std::to_string(src_off) + "]", dst);
+                    std::stringstream ss;
+                    ss << "MEM[0x" << std::hex << addr << "] => R" << std::dec << static_cast<int>(dst) << "=0x" << std::hex << static_cast<int>(val);
+                    print_step_trace(vm, cur_pc_offset, "LOAD_MEM8 R" + std::to_string(dst) + ", [R" + std::to_string(src_off) + "]", -1, ss.str());
                 }
                 break;
             }
@@ -192,7 +198,9 @@ uint32_t execute_bytecode_kernel(VMContext& vm) {
                 uint32_t val = vm.read_mem32(addr);
                 vm.write_reg(dst, static_cast<int32_t>(val));
                 if (vm.trace_execution) {
-                    print_step_trace(vm, cur_pc_offset, "LOAD_MEM32 R" + std::to_string(dst) + ", [R" + std::to_string(src_off) + "]", dst);
+                    std::stringstream ss;
+                    ss << "MEM[0x" << std::hex << addr << "] => R" << std::dec << static_cast<int>(dst) << "=0x" << std::hex << val;
+                    print_step_trace(vm, cur_pc_offset, "LOAD_MEM32 R" + std::to_string(dst) + ", [R" + std::to_string(src_off) + "]", -1, ss.str());
                 }
                 break;
             }
@@ -204,7 +212,9 @@ uint32_t execute_bytecode_kernel(VMContext& vm) {
                 uint8_t val = static_cast<uint8_t>(vm.read_reg(src) & 0xFF);
                 vm.write_mem8(addr, val);
                 if (vm.trace_execution) {
-                    print_step_trace(vm, cur_pc_offset, "STORE_MEM8 [R" + std::to_string(dst_off) + "], R" + std::to_string(src));
+                    std::stringstream ss;
+                    ss << "MEM[0x" << std::hex << addr << "] <= 0x" << std::hex << static_cast<int>(val);
+                    print_step_trace(vm, cur_pc_offset, "STORE_MEM8 [R" + std::to_string(dst_off) + "], R" + std::to_string(src), -1, ss.str());
                 }
                 break;
             }
@@ -216,7 +226,9 @@ uint32_t execute_bytecode_kernel(VMContext& vm) {
                 uint32_t val = static_cast<uint32_t>(vm.read_reg(src));
                 vm.write_mem32(addr, val);
                 if (vm.trace_execution) {
-                    print_step_trace(vm, cur_pc_offset, "STORE_MEM32 [R" + std::to_string(dst_off) + "], R" + std::to_string(src));
+                    std::stringstream ss;
+                    ss << "MEM[0x" << std::hex << addr << "] <= 0x" << std::hex << val;
+                    print_step_trace(vm, cur_pc_offset, "STORE_MEM32 [R" + std::to_string(dst_off) + "], R" + std::to_string(src), -1, ss.str());
                 }
                 break;
             }
