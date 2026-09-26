@@ -7,10 +7,11 @@
 
 #include "clean_symbols.h"
 #include "vm_context.h"
+#include "vm_kernel.h"
 #include "set_buffer.h"
 #include "FUN_1033f53a.h"
 
-void record_vm_execution(const std::string& label, const std::string& filePath) {
+void record_vm_execution(const std::string& label, const std::string& filePath, bool enableTrace = false) {
     std::cout << "=========================================================" << std::endl;
     std::cout << "       VM EXECUTOR STATE RECORDING (" << label << ")" << std::endl;
     std::cout << "=========================================================" << std::endl;
@@ -32,7 +33,11 @@ void record_vm_execution(const std::string& label, const std::string& filePath) 
     DoogEngine1::VMContext vm;
     vm.pc = buffer.data() + 0x200; // Pointer to payload byte at offset 0x200
     vm.code_base = buffer.data();
+    vm.code_end = buffer.data() + buffer.size(); // Valid code boundary
+    vm.arena_base = buffer.data();               // Bound memory arena buffer
+    vm.arena_size = buffer.size();               // Arena capacity in bytes
     vm.is_running = true;
+    vm.trace_execution = enableTrace;
 
     uint8_t opcode0 = buffer[0x200];
     uint8_t opcode1 = buffer[0x201];
@@ -84,11 +89,18 @@ void record_vm_execution(const std::string& label, const std::string& filePath) 
               << ", Top = 0x" << std::hex << vm.peek(0)
               << ", Next = 0x" << vm.peek(1) << std::dec << std::endl;
 
+    // Execute 87-State Bytecode Kernel (State Machine Dispatch)
     DoogEngine1::ExecuteBytecodeKernel(vm);
+
+    // If stream contains multi-instruction opcodes, execute opcode interpreter loop
+    if (vm.pc != nullptr && (opcode0 != 0x00 || opcode1 != 0x00)) {
+        DoogEngine1::execute_bytecode_kernel(vm);
+    }
 
     std::cout << "[+] Kernel execution finished. Error: " << (vm.has_error ? "YES" : "NO")
               << " (Code: 0x" << std::hex << vm.error_code << std::dec << ")"
               << ", is_running: " << (vm.is_running ? "true" : "false")
+              << ", Instructions Executed: " << vm.instruction_count
               << ", Final SP: " << vm.sp << std::endl;
     if (vm.sp > 0) {
         std::cout << "[+] Stack Top after kernel: 0x" << std::hex << vm.peek(0) << std::dec << std::endl;
@@ -127,15 +139,27 @@ void record_vm_execution(const std::string& label, const std::string& filePath) 
 }
 
 int main(int argc, char* argv[]) {
-    if (argc > 1) {
-        for (int i = 1; i < argc; ++i) {
-            std::string label = "ARG " + std::to_string(i) + ": " + argv[i];
-            record_vm_execution(label, argv[i]);
+    bool enableTrace = false;
+    std::vector<std::string> files;
+
+    for (int i = 1; i < argc; ++i) {
+        std::string arg = argv[i];
+        if (arg == "--trace" || arg == "-t") {
+            enableTrace = true;
+        } else {
+            files.push_back(arg);
+        }
+    }
+
+    if (!files.empty()) {
+        for (size_t i = 0; i < files.size(); ++i) {
+            std::string label = "FILE " + std::to_string(i + 1) + ": " + files[i];
+            record_vm_execution(label, files[i], enableTrace);
         }
     } else {
-        record_vm_execution("1. ORIGINAL PAYLOAD", "testfile");
-        record_vm_execution("2. MUTATED 1-BYTE (0x200: 0x00 -> 0xA5)", "testfile_mutated1");
-        record_vm_execution("3. MUTATED 2-BYTES (0x200: 0xA5, 0x201: 0x03 -> 0x3C)", "testfile_mutated2");
+        record_vm_execution("1. ORIGINAL PAYLOAD", "testfile", enableTrace);
+        record_vm_execution("2. MUTATED 1-BYTE (0x200: 0x00 -> 0xA5)", "testfile_mutated1", enableTrace);
+        record_vm_execution("3. MUTATED 2-BYTES (0x200: 0xA5, 0x201: 0x03 -> 0x3C)", "testfile_mutated2", enableTrace);
     }
 
     return 0;

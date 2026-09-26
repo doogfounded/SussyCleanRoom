@@ -39,7 +39,8 @@ def ensure_testfile(path: str = DEFAULT_ORIGINAL, size: int = 1854136):
             f.write(b"\x00" * size)
 
 def run_payload_with_patch(patches: Dict[int, int], harness_path: str = DEFAULT_HARNESS,
-                           orig_file: str = DEFAULT_ORIGINAL, mut_file: str = DEFAULT_MUTATED) -> Tuple[Dict[int, int], str]:
+                           orig_file: str = DEFAULT_ORIGINAL, mut_file: str = DEFAULT_MUTATED,
+                           trace: bool = False) -> Tuple[Dict[int, int], str]:
     """
     Copies orig_file to mut_file, writes byte patches {offset: byte_val},
     runs harness_path, and extracts register state R0-R15.
@@ -52,7 +53,12 @@ def run_payload_with_patch(patches: Dict[int, int], harness_path: str = DEFAULT_
             f.seek(offset)
             f.write(bytes([val & 0xFF]))
 
-    res = subprocess.run([harness_path, mut_file], capture_output=True, text=True)
+    cmd = [harness_path]
+    if trace:
+        cmd.append("--trace")
+    cmd.append(mut_file)
+
+    res = subprocess.run(cmd, capture_output=True, text=True)
     output = res.stdout
     registers: Dict[int, int] = {}
 
@@ -254,7 +260,10 @@ def cmd_custom(args):
             patches[o] = v
 
     print(f"[*] Running custom patch: { {hex(k): hex(v) for k, v in patches.items()} }")
-    regs, output = run_payload_with_patch(patches, args.harness, args.orig, args.mutated)
+    regs, output = run_payload_with_patch(patches, args.harness, args.orig, args.mutated, trace=args.trace)
+
+    if args.trace:
+        print("\n" + output)
 
     print("\n--- Register Output (R0 - R15) ---")
     for i in range(16):
@@ -278,6 +287,7 @@ def main():
     parser.add_argument("--mutated", default=DEFAULT_MUTATED, help=f"Temporary mutated payload path (default: {DEFAULT_MUTATED})")
     parser.add_argument("--json", help="Export sweep results to JSON file")
     parser.add_argument("--csv", help="Export sweep results to CSV file")
+    parser.add_argument("-t", "--trace", action="store_true", help="Enable instruction step tracer in VM")
 
     subparsers = parser.add_subparsers(dest="subcommand", required=True, help="Subcommand to execute")
 

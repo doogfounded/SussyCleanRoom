@@ -11,6 +11,15 @@ struct VMContext {
   // =========================================================================
   const uint8_t *pc = nullptr;        // Program Counter (points to next bytecode byte)
   const uint8_t *code_base = nullptr; // Base pointer to start of bytecode buffer
+  const uint8_t *code_end = nullptr;  // End boundary of valid bytecode buffer
+  size_t instruction_count = 0;       // Instructions executed
+  size_t max_instructions = 100000;   // Infinite loop guard limit
+
+  // =========================================================================
+  // Memory Arena Access
+  // =========================================================================
+  uint8_t *arena_base = nullptr;      // Base pointer to memory arena buffer
+  size_t arena_size = 0;              // Total size of memory arena in bytes
 
   // =========================================================================
   // Virtual CPU Registers
@@ -30,6 +39,7 @@ struct VMContext {
   // =========================================================================
   bool is_running = true;
   bool has_error = false;
+  bool trace_execution = false;       // Step debugger / instruction tracer mode
   uint32_t error_code = 0;
   uint32_t rollingChecksum = 0;
 
@@ -51,6 +61,7 @@ struct VMContext {
 
   // Fetch 1 byte and advance PC
   inline uint8_t fetch_u8() { return *pc++; }
+  inline int8_t fetch_i8() { return static_cast<int8_t>(*pc++); }
 
   // Fetch 16-bit little-endian integer and advance PC by 2
   inline uint16_t fetch_u16() {
@@ -114,6 +125,52 @@ struct VMContext {
       is_running = false;
       error_code = 3; // Stack Read Error
       return 0;
+    }
+  }
+
+  // =========================================================================
+  // Memory Arena Read/Write Operations (With Boundary Safety Guards)
+  // =========================================================================
+
+  inline uint8_t read_mem8(uint32_t addr) {
+    if (arena_base != nullptr && addr < arena_size) {
+      return arena_base[addr];
+    }
+    has_error = true;
+    error_code = 0x40; // Memory read8 out-of-bounds fault
+    return 0;
+  }
+
+  inline void write_mem8(uint32_t addr, uint8_t val) {
+    if (arena_base != nullptr && addr < arena_size) {
+      arena_base[addr] = val;
+    } else {
+      has_error = true;
+      error_code = 0x41; // Memory write8 out-of-bounds fault
+    }
+  }
+
+  inline uint32_t read_mem32(uint32_t addr) {
+    if (arena_base != nullptr && addr + 4 <= arena_size) {
+      return static_cast<uint32_t>(arena_base[addr]) |
+             (static_cast<uint32_t>(arena_base[addr + 1]) << 8) |
+             (static_cast<uint32_t>(arena_base[addr + 2]) << 16) |
+             (static_cast<uint32_t>(arena_base[addr + 3]) << 24);
+    }
+    has_error = true;
+    error_code = 0x42; // Memory read32 out-of-bounds fault
+    return 0;
+  }
+
+  inline void write_mem32(uint32_t addr, uint32_t val) {
+    if (arena_base != nullptr && addr + 4 <= arena_size) {
+      arena_base[addr]     = static_cast<uint8_t>(val & 0xFF);
+      arena_base[addr + 1] = static_cast<uint8_t>((val >> 8) & 0xFF);
+      arena_base[addr + 2] = static_cast<uint8_t>((val >> 16) & 0xFF);
+      arena_base[addr + 3] = static_cast<uint8_t>((val >> 24) & 0xFF);
+    } else {
+      has_error = true;
+      error_code = 0x43; // Memory write32 out-of-bounds fault
     }
   }
 
