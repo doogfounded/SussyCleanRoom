@@ -7,49 +7,52 @@
 
 using namespace DoogEngine1;
 
-void probe_r2_table() {
-    std::cout << "========================================================\n";
-    std::cout << "       DOOG ENGINE: REGION 2 TABLE INDEX PROBE          \n";
-    std::cout << "========================================================\n";
-    std::cout << "BytePos | TestedVal | Consumed | NewState     | Result\n";
-    std::cout << "--------------------------------------------------------\n";
+void sweep_r4_byte0() {
+    std::cout << "B0   B1   B2   consumed   destination\n";
+    std::cout << "-------------------------------------\n";
 
-    uint8_t test_vals[] = { 0x00, 0x01, 0x02, 0x03, 0x08, 0x0F, 0x10, 0x1F, 0x7F, 0x80, 0xFF };
+    const uint8_t b1 = 0x00;
+    const uint8_t b2 = 0x01;
 
-    for (int byte_pos = 0; byte_pos < 2; ++byte_pos) {
-        for (uint8_t val : test_vals) {
-            BufferContext ctx;
-          std::vector<uint8_t> data(64, 0x00);   // owns the memory, lives for the whole function/scope
-          data[byte_pos] = val;                  // mutate the actual storage
-          ctx.cursor = 0;
-          ctx.buffer = data;                     // span now safely views `data`
-            ctx.has_overflow = false;
+    uint32_t last_consumed = 0xFFFFFFFF;
+    uint32_t last_dest = 0xFFFFFFFF;
 
-            FUN_10285dc0_State current_state = static_cast<FUN_10285dc0_State>(0x10287390);
+    for (int b0_val = 0; b0_val <= 0xFF; ++b0_val) {
+        uint8_t b0 = static_cast<uint8_t>(b0_val);
 
-            // Execute Region 2
-            RegionResult res = ProcessCoreLoopRegion_Case2(ctx, current_state);
+        std::vector<uint8_t> data(128, 0x00);
+        data[0] = b0;
+        data[1] = b1;
+        data[2] = b2;
 
-            size_t consumed = ctx.cursor;
-
-            std::cout << "Byte " << byte_pos << "  | 0x" 
-                      << std::hex << std::setw(2) << std::setfill('0') << (int)val << "    | "
-                      << std::dec << std::setw(8) << consumed << " | 0x"
-                      << std::hex << static_cast<uint32_t>(current_state) << "   | ";
-
-            if (consumed == 38) {
-                std::cout << "Full 38B Block\n";
-            } else if (consumed == 0) {
-                std::cout << "Yield / 0B\n";
-            } else {
-                std::cout << "Branch Shift (" << consumed << "B)\n";
-            }
+        for (int i = 3; i < 64; ++i) {
+            data[i] = static_cast<uint8_t>(i);
         }
-        std::cout << "--------------------------------------------------------\n";
+
+        BufferContext ctx;
+        ctx.cursor = 0;
+        ctx.has_overflow = false;
+        ctx.buffer = data;
+
+        FUN_10285dc0_State current_state = static_cast<FUN_10285dc0_State>(0x10287fc0);
+        RegionResult res = ProcessCoreLoopRegion_Case3(ctx, current_state);
+
+        uint32_t final_state_val = static_cast<uint32_t>(res.next);
+
+        if (ctx.cursor != last_consumed || final_state_val != last_dest || b0_val <= 4 || b0_val == 0xFF) {
+            std::cout << std::hex << std::setw(2) << std::setfill('0') << b0_val << "   "
+                      << std::hex << std::setw(2) << std::setfill('0') << (int)b1 << "   "
+                      << std::hex << std::setw(2) << std::setfill('0') << (int)b2 << "      "
+                      << std::dec << std::setw(2) << std::setfill(' ') << ctx.cursor << "      "
+                      << std::hex << std::setw(8) << std::setfill('0') << final_state_val << "\n";
+
+            last_consumed = ctx.cursor;
+            last_dest = final_state_val;
+        }
     }
 }
 
 int main() {
-    probe_r2_table();
+    sweep_r4_byte0();
     return 0;
 }

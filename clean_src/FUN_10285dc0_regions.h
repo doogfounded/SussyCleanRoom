@@ -14,8 +14,8 @@ inline int classify_region(FUN_10285dc0_State state) {
     if (val >= 0x10289cc0 && val <= 0x1028ac96) return 6;
     if (val >= 0x1028acc0 && val <= 0x1028bdc2) return 7;
     if (val >= 0x1028bdf0 && val <= 0x1028ccf8) return 8;
-    if (val >= 0x1028cd20 && val <= 0x1028d720) return 9;
-    if (val >= 0x1028d720 && val <= 0x1028e3e0) return 10;
+    if (val >= 0x1028cd20 && val < 0x1028d720) return 9;
+    if (val >= 0x1028d720 && val < 0x1028e3e0) return 10;
     if (val >= 0x1028e3e0 && val <= 0x1028f3d7) return 11;
     if (val >= 0x1028f400 && val <= 0x10290664) return 12;
     return -1;
