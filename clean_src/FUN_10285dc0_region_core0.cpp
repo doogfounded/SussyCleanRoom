@@ -15,6 +15,9 @@ RegionResult ProcessCoreLoopRegion_Case0(BufferContext& ctx, FUN_10285dc0_State 
     FUN_10285dc0_State current = state;
 
     while (true) {
+        if (ctx.has_overflow) {
+            return { FUN_10285dc0_State::ERROR, true, true };
+        }
         // Range check: does the current state belong to Region 1?
         if (classify_region(current) != 1) {
             return { current, false, false };

@@ -39,6 +39,19 @@ RegionResult ProcessEntryRegion(BufferContext& ctx, FUN_10285dc0_State state) {
             }
             return { next, false, next == FUN_10285dc0_State::ERROR };
         }
+        case static_cast<FUN_10285dc0_State>(0x10285ddf): return { static_cast<FUN_10285dc0_State>(0x10285ed0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285de8): return { static_cast<FUN_10285dc0_State>(0x10286a40), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285df1): return { static_cast<FUN_10285dc0_State>(0x10287fc0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285dfa): return { static_cast<FUN_10285dc0_State>(0x1028bdf0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e03): return { static_cast<FUN_10285dc0_State>(0x1028e3e0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e0c): return { static_cast<FUN_10285dc0_State>(0x10288d10), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e15): return { static_cast<FUN_10285dc0_State>(0x10289cc0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e1e): return { static_cast<FUN_10285dc0_State>(0x1028acc0), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e27): return { static_cast<FUN_10285dc0_State>(0x1028cd20), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e30): return { static_cast<FUN_10285dc0_State>(0x10287390), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e39): return { static_cast<FUN_10285dc0_State>(0x1028d720), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e42): return { static_cast<FUN_10285dc0_State>(0x1028f400), false, false };
+        case static_cast<FUN_10285dc0_State>(0x10285e4b): return { FUN_10285dc0_State::EXIT, true, false };
         default:
             return { FUN_10285dc0_State::ERROR, false, true };
     }
